@@ -560,15 +560,33 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
     ]
 
+def get_used_datasets(demos: List[DemoDefinition], datasets_dir: str = "") -> set:
+    """Return set of relative file paths directly used by the demonstrations."""
+    used = set()
+    for d in demos:
+        for ds in d.datasets:
+            used.add(ds)
+    # Decision tree graphic files used in Week 02 C
+    if datasets_dir:
+        dt_dir = os.path.join(datasets_dir, "images", "decision_trees")
+        if os.path.exists(dt_dir):
+            for f in os.listdir(dt_dir):
+                if f != ".DS_Store":
+                    used.add(os.path.join("images", "decision_trees", f))
+                    used.add(f)
+    return used
+
 def generate_datasets_markdown(demos: List[DemoDefinition], datasets_dir: str, repo: str, branch: str) -> str:
-    """Generate DATASETS.md documenting each dataset, size, notebooks using it, storage location, and canonical URL."""
+    """Generate DATASETS.md documenting only datasets used in demonstrations."""
+    used_files = get_used_datasets(demos, datasets_dir)
+
     # Map datasets to demos
     dataset_usage = {}
     for d in demos:
         for ds in d.datasets:
             dataset_usage.setdefault(ds, []).append(f"{d.demo_number} ({d.title})")
 
-    # Inventory all files in datasets_dir
+    # Inventory used files in datasets_dir
     files_info = []
     if os.path.exists(datasets_dir):
         for root, dirs, files in os.walk(datasets_dir):
@@ -577,6 +595,9 @@ def generate_datasets_markdown(demos: List[DemoDefinition], datasets_dir: str, r
                     continue
                 full_path = os.path.join(root, f)
                 rel_path = os.path.relpath(full_path, datasets_dir)
+                if rel_path not in used_files and f not in used_files:
+                    continue
+
                 size = os.path.getsize(full_path)
                 storage = classify_dataset_storage(f, size)
                 if storage == "GCS":
@@ -585,7 +606,9 @@ def generate_datasets_markdown(demos: List[DemoDefinition], datasets_dir: str, r
                     canonical_url = f"https://raw.githubusercontent.com/{repo}/{branch}/data/{rel_path}"
 
                 used_by = dataset_usage.get(f, [])
-                used_by_str = ", ".join(used_by) if used_by else "*Supplementary / Course Reference*"
+                if not used_by and "images/decision_trees" in rel_path:
+                    used_by = ["Week 02 C (Tree Based Regression & Classification)"]
+                used_by_str = ", ".join(used_by) if used_by else "*Demonstration Asset*"
 
                 files_info.append({
                     "name": f,
@@ -599,12 +622,13 @@ def generate_datasets_markdown(demos: List[DemoDefinition], datasets_dir: str, r
 
     md_lines = [
         "# DASC-522 Course Datasets Directory\n",
-        "This document lists every dataset used in the DASC-522 course demonstrations, its size, storage tier, using notebooks, and canonical HTTPS download URL.\n",
+        "This document lists each dataset used in the DASC-522 course demonstrations, its size, storage tier, using notebooks, and canonical HTTPS download URL.\n",
         "## Storage Policy Summary",
-        "- **GitHub (`data/`)**: Datasets <= 25 MB are stored directly in this repository and accessed via public raw GitHub URLs.",
-        "- **Google Cloud Storage (GCS)**: Datasets > 25 MB are stored in a dedicated public course bucket (`dasc-522-course-data`) with anonymous read access.",
+        "- **GitHub (`data/`)**: Datasets <= 25 MB directly used by demonstrations are stored in this repository and accessed via public raw GitHub URLs.",
+        "- **Google Cloud Storage (GCS)**: Datasets > 25 MB are stored in dedicated public course bucket (`dasc-522-course-data`) with anonymous read access.",
         "- **Direct Colab Loading**: Notebooks load datasets directly via HTTPS URLs without requiring student logins, manual downloads, or Google Drive mounting.\n",
         "## Datasets Inventory Table\n",
+        f"Total Active Datasets: **{len(files_info)}**\n",
         "| Dataset File | Size | Storage | Notebook(s) Using Dataset | Canonical Download URL |",
         "| :--- | :--- | :--- | :--- | :--- |"
     ]
@@ -695,10 +719,15 @@ def run_full_migration(
     maint_dir = os.path.join(output_repo_path, "maintenance")
 
     os.makedirs(demos_dir, exist_ok=True)
-    os.makedirs(data_dir, exist_ok=True)
     os.makedirs(maint_dir, exist_ok=True)
+    demos = get_all_demo_definitions()
+    used_files = get_used_datasets(demos, datasets_dir)
 
-    # 1. Copy datasets <= 25MB to data/
+    # 1. Clean and copy only USED datasets <= 25MB to data/
+    if os.path.exists(data_dir):
+        shutil.rmtree(data_dir)
+    os.makedirs(data_dir, exist_ok=True)
+
     copied_datasets = []
     gcs_datasets = []
     if os.path.exists(datasets_dir):
@@ -708,6 +737,9 @@ def run_full_migration(
                     continue
                 full_src = os.path.join(root, f)
                 rel_path = os.path.relpath(full_src, datasets_dir)
+                if rel_path not in used_files and f not in used_files:
+                    continue
+
                 size = os.path.getsize(full_src)
                 if size <= SIZE_THRESHOLD_BYTES:
                     dest_path = os.path.join(data_dir, rel_path)
@@ -717,7 +749,7 @@ def run_full_migration(
                 else:
                     gcs_datasets.append((rel_path, size))
 
-    print(f"Copied {len(copied_datasets)} small datasets to data/")
+    print(f"Copied {len(copied_datasets)} used small datasets to data/")
     print(f"Identified {len(gcs_datasets)} large datasets for GCS")
 
     # 2. Load master notebook
@@ -725,7 +757,6 @@ def run_full_migration(
         master_nb = json.load(f)
 
     # 3. Extract all demo notebooks
-    demos = get_all_demo_definitions()
     generated_notebooks = []
     for d in demos:
         nb_dict = extract_demo_notebook(master_nb, d, repo=repo, branch=branch)
