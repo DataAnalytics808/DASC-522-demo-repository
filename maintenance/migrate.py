@@ -31,6 +31,7 @@ class DemoDefinition:
     description: str = ""
     extra_imports: List[str] = field(default_factory=list)
     setup_code: str = ""
+    runtime_seconds: float = 0.0
 
 def generate_colab_url(repo: str, branch: str, notebook_path: str) -> str:
     """Generate canonical direct Open-in-Colab URL."""
@@ -38,13 +39,9 @@ def generate_colab_url(repo: str, branch: str, notebook_path: str) -> str:
     clean_path = notebook_path.lstrip("/")
     return f"https://colab.research.google.com/github/{repo}/blob/{branch}/{clean_path}"
 
-def create_colab_badge_cell(colab_url: str) -> dict:
-    """Create a Markdown cell containing the Open in Colab badge."""
-    markdown_content = (
-        f'<a href="{colab_url}" target="_parent">'
-        f'<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>'
-        f'</a>\n'
-    )
+def create_colab_badge_cell(colab_url: str = "") -> dict:
+    """Create a Markdown cell containing the 'Copy to Drive' instruction."""
+    markdown_content = 'Click "Copy to Drive" above to copy this file to your Colab account.\n'
     return {
         "cell_type": "markdown",
         "metadata": {},
@@ -200,6 +197,21 @@ def extract_demo_notebook(
                     "test_labels = test_labels[:10000].astype(np.int64)\n"
                 )
 
+        # Check for Pima Indian dataset download
+        if demo.filename in [
+            "Week_05_1_Pima_Indian_Classification.ipynb",
+            "Week_06_3_Resampling_Cross_Validation.ipynb",
+            "Week_06_4_Pima_Indian_Classification.ipynb"
+        ] and '5A pima-indians-diabetes.data.csv' in source_str and 'urllib.request' not in source_str:
+            pima_download = (
+                "# Programmatically download required dataset from GitHub if not present\n"
+                "import urllib.request, os\n"
+                "if not os.path.exists('5A pima-indians-diabetes.data.csv'):\n"
+                "    pima_url = 'https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/5A%20pima-indians-diabetes.data.csv'\n"
+                "    urllib.request.urlretrieve(pima_url, '5A pima-indians-diabetes.data.csv')\n\n"
+            )
+            source_str = pima_download + source_str
+
         # Check for Week 9 (Checkpointing) Cade data files download
         if demo.filename in ["Week_09_F_Checkpointing.ipynb", "Week_09_4_Checkpointing.ipynb"] and 'pd.read_csv("Cade_X.csv")' in source_str:
             download_block = (
@@ -231,8 +243,8 @@ def build_colab_links_table(demos: List[DemoDefinition], repo: str, branch: str)
     md_lines = [
         "# DASC-522 Course Demonstrations — Direct Colab Launch Links\n",
         "These direct links open each demonstration directly in Google Colab without navigating GitHub.\n",
-        "| Demo # | Demonstration Title | GitHub Notebook Path | Direct Open-in-Colab URL | Dataset(s) Used | Storage Location |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- |"
+        "| Demo # | Demonstration Title | GitHub Notebook Path | Direct Open-in-Colab URL | Dataset(s) Used | Storage Location | Runtime (s) |",
+        "| :--- | :--- | :--- | :--- | :--- | :--- | :---: |"
     ]
 
     for d in demos:
@@ -240,8 +252,9 @@ def build_colab_links_table(demos: List[DemoDefinition], repo: str, branch: str)
         colab_url = generate_colab_url(repo, branch, nb_path)
         ds_str = ", ".join(d.datasets) if d.datasets else "None"
         storage_str = d.dataset_storage
+        runtime_str = f"{d.runtime_seconds:.1f}s" if d.runtime_seconds else "N/A"
 
-        md_line = f"| **{d.demo_number}** | {d.title} | [`{nb_path}`]({nb_path}) | [Open in Colab]({colab_url}) | {ds_str} | {storage_str} |"
+        md_line = f"| **{d.demo_number}** | {d.title} | [`{nb_path}`]({nb_path}) | [Open in Colab]({colab_url}) | {ds_str} | {storage_str} | {runtime_str} |"
         md_lines.append(md_line)
 
         csv_rows.append({
@@ -250,7 +263,8 @@ def build_colab_links_table(demos: List[DemoDefinition], repo: str, branch: str)
             "GitHub notebook path": nb_path,
             "Direct Open-in-Colab URL": colab_url,
             "Dataset(s) used": ds_str,
-            "Dataset storage location": storage_str
+            "Dataset storage location": storage_str,
+            "Runtime (seconds)": str(round(d.runtime_seconds, 1)) if d.runtime_seconds else "N/A"
         })
 
     return "\n".join(md_lines) + "\n", csv_rows
@@ -261,6 +275,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 2
         DemoDefinition(
             demo_number="Week 02.1",
+            runtime_seconds=5.4,
             title="Regression Review",
             filename="Week_02_1_Regression_Review.ipynb",
             start_cell=10, end_cell=15,
@@ -270,6 +285,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 02.2",
+            runtime_seconds=5.6,
             title="Classification",
             filename="Week_02_2_Classification.ipynb",
             start_cell=16, end_cell=31,
@@ -279,6 +295,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 02.3",
+            runtime_seconds=48.5,
             title="Tree Based Regression & Classification",
             filename="Week_02_3_Tree_Based_Regression_Classification.ipynb",
             start_cell=32, end_cell=156,
@@ -289,6 +306,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 02 Bonus",
+            runtime_seconds=18.8,
             title="To Intercept or Not",
             filename="Week_02_Bonus_To_Intercept_or_Not.ipynb",
             start_cell=157, end_cell=175,
@@ -299,6 +317,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 3
         DemoDefinition(
             demo_number="Week 03.1",
+            runtime_seconds=16.6,
             title="Hierarchical Clustering & K-Means",
             filename="Week_03_1_Hierarchical_Clustering_KMeans.ipynb",
             start_cell=178, end_cell=213,
@@ -308,6 +327,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 03.2",
+            runtime_seconds=4.6,
             title="PCA & Anomaly Detection",
             filename="Week_03_2_PCA_Anomaly_Detection.ipynb",
             start_cell=214, end_cell=222,
@@ -318,6 +338,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 03 Bonus",
+            runtime_seconds=4.3,
             title="Raindrop Plot Demo",
             filename="Week_03_Bonus_Raindrop_Plot.ipynb",
             start_cell=223, end_cell=229,
@@ -329,6 +350,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 4
         DemoDefinition(
             demo_number="Week 04.1",
+            runtime_seconds=6.9,
             title="Stepwise Selection",
             filename="Week_04_1_Stepwise_Selection.ipynb",
             start_cell=231, end_cell=253,
@@ -338,6 +360,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 04.2",
+            runtime_seconds=24.4,
             title="L1 & L2 Regularization",
             filename="Week_04_2_L1_L2_Regularization.ipynb",
             start_cell=254, end_cell=321,
@@ -347,6 +370,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 04.3",
+            runtime_seconds=40.3,
             title="Natural Language Processing",
             filename="Week_04_3_Natural_Language_Processing.ipynb",
             start_cell=322, end_cell=352,
@@ -356,6 +380,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 04 Bonus",
+            runtime_seconds=5.2,
             title="Standard Plot Format",
             filename="Week_04_Bonus_Standard_Plot_Format.ipynb",
             start_cell=353, end_cell=357,
@@ -366,6 +391,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 5
         DemoDefinition(
             demo_number="Week 05.1",
+            runtime_seconds=14.7,
             title="Pima Indian Classification",
             filename="Week_05_1_Pima_Indian_Classification.ipynb",
             start_cell=359, end_cell=369,
@@ -375,6 +401,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 05 Bonus",
+            runtime_seconds=6.0,
             title="Plotting Histograms of Numeric Variables",
             filename="Week_05_Bonus_Histograms.ipynb",
             start_cell=370, end_cell=372,
@@ -386,6 +413,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 6
         DemoDefinition(
             demo_number="Week 06.1",
+            runtime_seconds=484.0,
             title="Early Stopping",
             filename="Week_06_1_Early_Stopping.ipynb",
             start_cell=374, end_cell=383,
@@ -395,6 +423,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 06.2",
+            runtime_seconds=206.2,
             title="Optimization",
             filename="Week_06_2_Optimization.ipynb",
             start_cell=384, end_cell=403,
@@ -404,6 +433,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 06.3",
+            runtime_seconds=16.8,
             title="Resampling & Cross Validation",
             filename="Week_06_3_Resampling_Cross_Validation.ipynb",
             start_cell=404, end_cell=471,
@@ -413,6 +443,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 06.4",
+            runtime_seconds=13.8,
             title="Pima Indian Classification Multi-Model",
             filename="Week_06_4_Pima_Indian_Classification.ipynb",
             start_cell=472, end_cell=482,
@@ -422,6 +453,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 06 Bonus",
+            runtime_seconds=3.5,
             title="Dataset Splitting Patterns",
             filename="Week_06_Bonus_Splitting.ipynb",
             start_cell=483, end_cell=484,
@@ -441,24 +473,28 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 7
         DemoDefinition(
             demo_number="Week 07.1",
+            runtime_seconds=149.0,
             title="Regression TensorFlow Example",
             filename="Week_07_1_Regression_TensorFlow.ipynb",
             start_cell=486, end_cell=616,
-            datasets=["dnn_model.keras"],
-            dataset_storage="GitHub",
+            datasets=[],
+            dataset_storage="External URL",
             description="Predicting fuel efficiency with TensorFlow Keras: Normalization layer, single-variable linear, multiple inputs, and DNN regression."
         ),
         DemoDefinition(
             demo_number="Week 07.2",
+            runtime_seconds=62.4,
             title="Binary Classification with TensorFlow",
             filename="Week_07_2_Binary_Classification.ipynb",
             start_cell=617, end_cell=637,
             datasets=[],
             dataset_storage="External URL",
+            extra_imports=["from tensorflow import keras"],
             description="Binary classification on California Housing data with logistic regression vs all-in-one neural network and threshold sweep."
         ),
         DemoDefinition(
             demo_number="Week 07.3",
+            runtime_seconds=61.2,
             title="Hyperparameter Classification",
             filename="Week_07_3_Hyperparameter_Classification.ipynb",
             start_cell=638, end_cell=657,
@@ -469,6 +505,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 8
         DemoDefinition(
             demo_number="Week 08.1",
+            runtime_seconds=231.9,
             title="Autoencoder Architecture",
             filename="Week_08_1_Autoencoder.ipynb",
             start_cell=659, end_cell=687,
@@ -478,6 +515,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 08.2",
+            runtime_seconds=14.6,
             title="Autoencoder for Feature Extraction & Classification",
             filename="Week_08_2_Autoencoder.ipynb",
             start_cell=688, end_cell=739,
@@ -487,6 +525,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 08.3",
+            runtime_seconds=3.8,
             title="Dropout Regularization",
             filename="Week_08_3_Dropout_Regularization.ipynb",
             start_cell=740, end_cell=743,
@@ -496,6 +535,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 08.4",
+            runtime_seconds=3900.0,
             title="Neural Network Regularization",
             filename="Week_08_4_NN_Regularization.ipynb",
             start_cell=744, end_cell=820,
@@ -505,6 +545,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 08 Bonus",
+            runtime_seconds=7.0,
             title="Trivial Models Baseline",
             filename="Week_08_Bonus_Trivial_Models.ipynb",
             start_cell=821, end_cell=822,
@@ -516,6 +557,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         # Week 9
         DemoDefinition(
             demo_number="Week 09.1",
+            runtime_seconds=68.0,
             title="General Machine Learning Debugging",
             filename="Week_09_1_General_ML_Debugging.ipynb",
             start_cell=824, end_cell=866,
@@ -525,6 +567,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 09.2",
+            runtime_seconds=298.0,
             title="Debugging in Regression",
             filename="Week_09_2_Debugging_Regression.ipynb",
             start_cell=867, end_cell=939,
@@ -534,6 +577,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 09.3",
+            runtime_seconds=105.0,
             title="Debugging in Classification",
             filename="Week_09_3_Debugging_Classification.ipynb",
             start_cell=940, end_cell=1013,
@@ -543,6 +587,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 09.4",
+            runtime_seconds=215.0,
             title="Model Checkpointing & Hyperparameter Logging",
             filename="Week_09_4_Checkpointing.ipynb",
             start_cell=1014, end_cell=1041,
@@ -552,6 +597,7 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         DemoDefinition(
             demo_number="Week 09 Bonus",
+            runtime_seconds=2.0,
             title="Neural Network Architecture Visualization",
             filename="Week_09_Bonus_Ann_viz.ipynb",
             start_cell=1042, end_cell=1043,
@@ -779,7 +825,8 @@ def run_full_migration(
         "GitHub notebook path",
         "Direct Open-in-Colab URL",
         "Dataset(s) used",
-        "Dataset storage location"
+        "Dataset storage location",
+        "Runtime (seconds)"
     ]
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
