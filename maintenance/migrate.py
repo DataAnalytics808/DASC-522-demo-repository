@@ -200,17 +200,24 @@ def extract_demo_notebook(
                     "test_labels = test_labels[:10000].astype(np.int64)\n"
                 )
 
-        # Check for Week 9F Cade data files download
-        if demo.filename == "Week_09_F_Checkpointing.ipynb" and 'pd.read_csv("Cade_X.csv")' in source_str:
+        # Check for Week 9 (Checkpointing) Cade data files download
+        if demo.filename in ["Week_09_F_Checkpointing.ipynb", "Week_09_4_Checkpointing.ipynb"] and 'pd.read_csv("Cade_X.csv")' in source_str:
             download_block = (
                 "# Programmatically download required datasets for checkpointing demo\n"
-                "import urllib.request, os\n"
+                "import urllib.request, urllib.parse, os\n"
                 "base_gh = 'https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data'\n"
                 "for f in ['Cade_X.csv', 'Cade_y.csv', 'best_model.keras', '347Sum 106FP 241FN 0.837f1.h5']:\n"
                 "    if not os.path.exists(f):\n"
-                "        urllib.request.urlretrieve(f'{base_gh}/{f}', f)\n\n"
+                "        encoded_url = f'{base_gh}/{urllib.parse.quote(f)}'\n"
+                "        urllib.request.urlretrieve(encoded_url, f)\n\n"
             )
             source_str = download_block + source_str
+
+        if demo.filename in ["Week_09_F_Checkpointing.ipynb", "Week_09_4_Checkpointing.ipynb"] and 'loaded_model = tf.keras.models.load_model(file)' in source_str:
+            source_str = source_str.replace(
+                'loaded_model = tf.keras.models.load_model(file)',
+                'loaded_model = tf.keras.models.load_model(file, compile=False)\nloaded_model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])'
+            )
 
         rewritten = rewrite_cell_for_colab(source_str, dataset_mapping, colab_url)
         new_cell["source"] = [l + "\n" for l in rewritten.split("\n")[:-1]] + ([rewritten.split("\n")[-1]] if rewritten.split("\n")[-1] else [])
@@ -253,27 +260,27 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
     return [
         # Week 2
         DemoDefinition(
-            demo_number="Week 02 A",
+            demo_number="Week 02.1",
             title="Regression Review",
-            filename="Week_02_A_Regression_Review.ipynb",
+            filename="Week_02_1_Regression_Review.ipynb",
             start_cell=10, end_cell=15,
             datasets=[],
             dataset_storage="None",
             description="OLS linear regression review with statsmodels, confidence intervals, and residual QQ plots using Iris data."
         ),
         DemoDefinition(
-            demo_number="Week 02 B",
+            demo_number="Week 02.2",
             title="Classification",
-            filename="Week_02_B_Classification.ipynb",
+            filename="Week_02_2_Classification.ipynb",
             start_cell=16, end_cell=31,
             datasets=["GRE.csv"],
             dataset_storage="GitHub",
             description="Binary logistic regression classification on graduate school admissions dataset with statsmodels and scikit-learn."
         ),
         DemoDefinition(
-            demo_number="Week 02 C",
+            demo_number="Week 02.3",
             title="Tree Based Regression & Classification",
-            filename="Week_02_C_Tree_Based_Regression_Classification.ipynb",
+            filename="Week_02_3_Tree_Based_Regression_Classification.ipynb",
             start_cell=32, end_cell=156,
             datasets=["Carseats.csv", "Heart.csv", "Hitters.csv", "ISLR_Hitters.csv", "boston_house_prices.csv"],
             dataset_storage="GitHub",
@@ -291,18 +298,18 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 3
         DemoDefinition(
-            demo_number="Week 03 A",
+            demo_number="Week 03.1",
             title="Hierarchical Clustering & K-Means",
-            filename="Week_03_A_Hierarchical_Clustering_KMeans.ipynb",
+            filename="Week_03_1_Hierarchical_Clustering_KMeans.ipynb",
             start_cell=178, end_cell=213,
             datasets=[],
             dataset_storage="External URL",
             description="Unsupervised learning: hierarchical agglomerative clustering and K-means with dendrograms on Mall Customers."
         ),
         DemoDefinition(
-            demo_number="Week 03 B",
+            demo_number="Week 03.2",
             title="PCA & Anomaly Detection",
-            filename="Week_03_B_PCA_Anomaly_Detection.ipynb",
+            filename="Week_03_2_PCA_Anomaly_Detection.ipynb",
             start_cell=214, end_cell=222,
             datasets=[],
             dataset_storage="None",
@@ -321,27 +328,27 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 4
         DemoDefinition(
-            demo_number="Week 04 A",
+            demo_number="Week 04.1",
             title="Stepwise Selection",
-            filename="Week_04_A_Stepwise_Selection.ipynb",
+            filename="Week_04_1_Stepwise_Selection.ipynb",
             start_cell=231, end_cell=253,
             datasets=["UScrime 2.csv"],
             dataset_storage="GitHub",
             description="Stepwise feature selection using brute force forward / backward elimination and AIC/BIC evaluation on US Crime data."
         ),
         DemoDefinition(
-            demo_number="Week 04 B",
+            demo_number="Week 04.2",
             title="L1 & L2 Regularization",
-            filename="Week_04_B_L1_L2_Regularization.ipynb",
+            filename="Week_04_2_L1_L2_Regularization.ipynb",
             start_cell=254, end_cell=321,
             datasets=["Hitters.csv", "Hitters_X_train.csv", "Hitters_X_test.csv", "Hitters_y_train.csv", "Hitters_y_test.csv"],
             dataset_storage="GitHub",
             description="Ridge regression (L2), Lasso (L1), Principal Components Regression, and Partial Least Squares on Hitters dataset."
         ),
         DemoDefinition(
-            demo_number="Week 04 C",
+            demo_number="Week 04.3",
             title="Natural Language Processing",
-            filename="Week_04_C_Natural_Language_Processing.ipynb",
+            filename="Week_04_3_Natural_Language_Processing.ipynb",
             start_cell=322, end_cell=352,
             datasets=["NLP Training data.csv"],
             dataset_storage="GitHub",
@@ -358,9 +365,9 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 5
         DemoDefinition(
-            demo_number="Week 05 A",
+            demo_number="Week 05.1",
             title="Pima Indian Classification",
-            filename="Week_05_A_Pima_Indian_Classification.ipynb",
+            filename="Week_05_1_Pima_Indian_Classification.ipynb",
             start_cell=359, end_cell=369,
             datasets=["5A pima-indians-diabetes.data.csv"],
             dataset_storage="GitHub",
@@ -378,36 +385,36 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 6
         DemoDefinition(
-            demo_number="Week 06 A",
+            demo_number="Week 06.1",
             title="Early Stopping",
-            filename="Week_06_A_Early_Stopping.ipynb",
+            filename="Week_06_1_Early_Stopping.ipynb",
             start_cell=374, end_cell=383,
             datasets=[],
             dataset_storage="None",
             description="Mitigating neural network overfitting using Keras EarlyStopping callback with validation loss monitoring."
         ),
         DemoDefinition(
-            demo_number="Week 06 B",
+            demo_number="Week 06.2",
             title="Optimization",
-            filename="Week_06_B_Optimization.ipynb",
+            filename="Week_06_2_Optimization.ipynb",
             start_cell=384, end_cell=403,
             datasets=[],
             dataset_storage="None",
             description="Evaluating Adam, SGD, RMSprop, learning rates, momentum, and batch normalization on neural network convergence."
         ),
         DemoDefinition(
-            demo_number="Week 06 C",
+            demo_number="Week 06.3",
             title="Resampling & Cross Validation",
-            filename="Week_06_C_Resampling_Cross_Validation.ipynb",
+            filename="Week_06_3_Resampling_Cross_Validation.ipynb",
             start_cell=404, end_cell=471,
             datasets=["5A pima-indians-diabetes.data.csv"],
             dataset_storage="GitHub",
             description="Comprehensive cross-validation techniques: K-Fold, Stratified K-Fold, ShuffleSplit, LOOCV, and LPOCV."
         ),
         DemoDefinition(
-            demo_number="Week 06 D",
+            demo_number="Week 06.4",
             title="Pima Indian Classification Multi-Model",
-            filename="Week_06_D_Pima_Indian_Classification.ipynb",
+            filename="Week_06_4_Pima_Indian_Classification.ipynb",
             start_cell=472, end_cell=482,
             datasets=["5A pima-indians-diabetes.data.csv"],
             dataset_storage="GitHub",
@@ -433,27 +440,27 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 7
         DemoDefinition(
-            demo_number="Week 07 A",
+            demo_number="Week 07.1",
             title="Regression TensorFlow Example",
-            filename="Week_07_A_Regression_TensorFlow.ipynb",
+            filename="Week_07_1_Regression_TensorFlow.ipynb",
             start_cell=486, end_cell=616,
             datasets=["dnn_model.keras"],
             dataset_storage="GitHub",
             description="Predicting fuel efficiency with TensorFlow Keras: Normalization layer, single-variable linear, multiple inputs, and DNN regression."
         ),
         DemoDefinition(
-            demo_number="Week 07 B",
+            demo_number="Week 07.2",
             title="Binary Classification with TensorFlow",
-            filename="Week_07_B_Binary_Classification.ipynb",
+            filename="Week_07_2_Binary_Classification.ipynb",
             start_cell=617, end_cell=637,
             datasets=[],
             dataset_storage="External URL",
             description="Binary classification on California Housing data with logistic regression vs all-in-one neural network and threshold sweep."
         ),
         DemoDefinition(
-            demo_number="Week 07 C",
+            demo_number="Week 07.3",
             title="Hyperparameter Classification",
-            filename="Week_07_C_Hyperparameter_Classification.ipynb",
+            filename="Week_07_3_Hyperparameter_Classification.ipynb",
             start_cell=638, end_cell=657,
             datasets=["Diabetes.csv"],
             dataset_storage="GitHub",
@@ -461,36 +468,36 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
         ),
         # Week 8
         DemoDefinition(
-            demo_number="Week 08 A",
+            demo_number="Week 08.1",
             title="Autoencoder Architecture",
-            filename="Week_08_A_Autoencoder.ipynb",
+            filename="Week_08_1_Autoencoder.ipynb",
             start_cell=659, end_cell=687,
             datasets=[],
             dataset_storage="None",
             description="Building autoencoder architectures with TensorFlow Keras custom layers and training loops on MNIST."
         ),
         DemoDefinition(
-            demo_number="Week 08 B",
+            demo_number="Week 08.2",
             title="Autoencoder for Feature Extraction & Classification",
-            filename="Week_08_B_Autoencoder.ipynb",
+            filename="Week_08_2_Autoencoder.ipynb",
             start_cell=688, end_cell=739,
             datasets=[],
             dataset_storage="Keras Built-in",
             description="Fashion-MNIST autoencoder representation learning and downstream classification with frozen encoder layers."
         ),
         DemoDefinition(
-            demo_number="Week 08 C",
+            demo_number="Week 08.3",
             title="Dropout Regularization",
-            filename="Week_08_C_Dropout_Regularization.ipynb",
+            filename="Week_08_3_Dropout_Regularization.ipynb",
             start_cell=740, end_cell=743,
             datasets=[],
             dataset_storage="None",
             description="Dropout regularization mechanics and effects on dense network weights."
         ),
         DemoDefinition(
-            demo_number="Week 08 D",
+            demo_number="Week 08.4",
             title="Neural Network Regularization",
-            filename="Week_08_D_NN_Regularization.ipynb",
+            filename="Week_08_4_NN_Regularization.ipynb",
             start_cell=744, end_cell=820,
             datasets=[],
             dataset_storage="External URL",
@@ -503,40 +510,41 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
             start_cell=821, end_cell=822,
             datasets=[],
             dataset_storage="None",
+            extra_imports=["import numpy as np"],
             description="Establishing mean/mode dummy predictor baselines to contextualize complex ML model performance."
         ),
         # Week 9
         DemoDefinition(
-            demo_number="Week 09 C",
+            demo_number="Week 09.1",
             title="General Machine Learning Debugging",
-            filename="Week_09_C_General_ML_Debugging.ipynb",
+            filename="Week_09_1_General_ML_Debugging.ipynb",
             start_cell=824, end_cell=866,
             datasets=[],
             dataset_storage="None",
             description="Case studies in debugging ML models: diagnosing exploding gradients, loss plateauing, and learning rate tuning."
         ),
         DemoDefinition(
-            demo_number="Week 09 D",
+            demo_number="Week 09.2",
             title="Debugging in Regression",
-            filename="Week_09_D_Debugging_Regression.ipynb",
+            filename="Week_09_2_Debugging_Regression.ipynb",
             start_cell=867, end_cell=939,
             datasets=[],
             dataset_storage="External URL",
             description="Debugging regression models on Wine Quality dataset: checking data splits, linear baselines, nonlinear modeling, and bug isolation."
         ),
         DemoDefinition(
-            demo_number="Week 09 E",
+            demo_number="Week 09.3",
             title="Debugging in Classification",
-            filename="Week_09_E_Debugging_Classification.ipynb",
+            filename="Week_09_3_Debugging_Classification.ipynb",
             start_cell=940, end_cell=1013,
             datasets=[],
             dataset_storage="External URL",
             description="Debugging classification on MNIST: class imbalance checks, loss formulation bugs, model complexity, and data skew."
         ),
         DemoDefinition(
-            demo_number="Week 09 F",
+            demo_number="Week 09.4",
             title="Model Checkpointing & Hyperparameter Logging",
-            filename="Week_09_F_Checkpointing.ipynb",
+            filename="Week_09_4_Checkpointing.ipynb",
             start_cell=1014, end_cell=1041,
             datasets=["Cade_X.csv", "Cade_y.csv", "batch_output.csv", "best_model.keras", "347Sum 106FP 241FN 0.837f1.h5"],
             dataset_storage="GitHub",

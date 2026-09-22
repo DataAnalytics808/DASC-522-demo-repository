@@ -64,34 +64,34 @@ Total Demonstrations: **31**
 
 | Week | Demo # | Demonstration Name | Notebook File |
 | :--- | :--- | :--- | :--- |
-| Week 02 | **Week 02 A** | Regression Review | [`Week_02_A_Regression_Review.ipynb`](demos/Week_02_A_Regression_Review.ipynb) |
-| Week 02 | **Week 02 B** | Classification | [`Week_02_B_Classification.ipynb`](demos/Week_02_B_Classification.ipynb) |
-| Week 02 | **Week 02 C** | Tree Based Regression & Classification | [`Week_02_C_Tree_Based_Regression_Classification.ipynb`](demos/Week_02_C_Tree_Based_Regression_Classification.ipynb) |
+| Week 02.1 | **Week 02.1** | Regression Review | [`Week_02_1_Regression_Review.ipynb`](demos/Week_02_1_Regression_Review.ipynb) |
+| Week 02.2 | **Week 02.2** | Classification | [`Week_02_2_Classification.ipynb`](demos/Week_02_2_Classification.ipynb) |
+| Week 02.3 | **Week 02.3** | Tree Based Regression & Classification | [`Week_02_3_Tree_Based_Regression_Classification.ipynb`](demos/Week_02_3_Tree_Based_Regression_Classification.ipynb) |
 | Week 02 | **Week 02 Bonus** | To Intercept or Not | [`Week_02_Bonus_To_Intercept_or_Not.ipynb`](demos/Week_02_Bonus_To_Intercept_or_Not.ipynb) |
-| Week 03 | **Week 03 A** | Hierarchical Clustering & K-Means | [`Week_03_A_Hierarchical_Clustering_KMeans.ipynb`](demos/Week_03_A_Hierarchical_Clustering_KMeans.ipynb) |
-| Week 03 | **Week 03 B** | PCA & Anomaly Detection | [`Week_03_B_PCA_Anomaly_Detection.ipynb`](demos/Week_03_B_PCA_Anomaly_Detection.ipynb) |
+| Week 03.1 | **Week 03.1** | Hierarchical Clustering & K-Means | [`Week_03_1_Hierarchical_Clustering_KMeans.ipynb`](demos/Week_03_1_Hierarchical_Clustering_KMeans.ipynb) |
+| Week 03.2 | **Week 03.2** | PCA & Anomaly Detection | [`Week_03_2_PCA_Anomaly_Detection.ipynb`](demos/Week_03_2_PCA_Anomaly_Detection.ipynb) |
 | Week 03 | **Week 03 Bonus** | Raindrop Plot Demo | [`Week_03_Bonus_Raindrop_Plot.ipynb`](demos/Week_03_Bonus_Raindrop_Plot.ipynb) |
-| Week 04 | **Week 04 A** | Stepwise Selection | [`Week_04_A_Stepwise_Selection.ipynb`](demos/Week_04_A_Stepwise_Selection.ipynb) |
-| Week 04 | **Week 04 B** | L1 & L2 Regularization | [`Week_04_B_L1_L2_Regularization.ipynb`](demos/Week_04_B_L1_L2_Regularization.ipynb) |
-| Week 04 | **Week 04 C** | Natural Language Processing | [`Week_04_C_Natural_Language_Processing.ipynb`](demos/Week_04_C_Natural_Language_Processing.ipynb) |
+| Week 04.1 | **Week 04.1** | Stepwise Selection | [`Week_04_1_Stepwise_Selection.ipynb`](demos/Week_04_1_Stepwise_Selection.ipynb) |
+| Week 04.2 | **Week 04.2** | L1 & L2 Regularization | [`Week_04_2_L1_L2_Regularization.ipynb`](demos/Week_04_2_L1_L2_Regularization.ipynb) |
+| Week 04.3 | **Week 04.3** | Natural Language Processing | [`Week_04_3_Natural_Language_Processing.ipynb`](demos/Week_04_3_Natural_Language_Processing.ipynb) |
 | Week 04 | **Week 04 Bonus** | Standard Plot Format | [`Week_04_Bonus_Standard_Plot_Format.ipynb`](demos/Week_04_Bonus_Standard_Plot_Format.ipynb) |
-| Week 05 | **Week 05 A** | Pima Indian Classification | [`Week_05_A_Pima_Indian_Classification.ipynb`](demos/Week_05_A_Pima_Indian_Classification.ipynb) |
+| Week 05.1 | **Week 05.1** | Pima Indian Classification | [`Week_05_1_Pima_Indian_Classification.ipynb`](demos/Week_05_1_Pima_Indian_Classification.ipynb) |
 | Week 05 | **Week 05 Bonus** | Plotting Histograms of Numeric Variables | [`Week_05_Bonus_Histograms.ipynb`](demos/Week_05_Bonus_Histograms.ipynb) |
-| Week 06 | **Week 06 A** | Early Stopping | [`Week_06_A_Early_Stopping.ipynb`](demos/Week_06_A_Early_Stopping.ipynb) |
-| Week 06 | **Week 06 B** | Optimization | [`Week_06_B_Optimization.ipynb`](demos/Week_06_B_Optimization.ipynb) |
-| Week 06 | **Week 06 C** | Resampling & Cross Validation | [`Week_06_C_Resampling_Cross_Validation.ipynb`](demos/Week_06_C_Resampling_Cross_Validation.ipynb) |
-| Week 06 | **Week 06 D** | Pima Indian Classification Multi-Model | [`Week_06_D_Pima_Indian_Classification.ipynb`](demos/Week_06_D_Pima_Indian_Classification.ipynb) |
+| Week 06.1 | **Week 06.1** | Early Stopping | [`Week_06_1_Early_Stopping.ipynb`](demos/Week_06_1_Early_Stopping.ipynb) |
+| Week 06.2 | **Week 06.2** | Optimization | [`Week_06_2_Optimization.ipynb`](demos/Week_06_2_Optimization.ipynb) |
+| Week 06.3 | **Week 06.3** | Resampling & Cross Validation | [`Week_06_3_Resampling_Cross_Validation.ipynb`](demos/Week_06_3_Resampling_Cross_Validation.ipynb) |
+| Week 06.4 | **Week 06.4** | Pima Indian Classification Multi-Model | [`Week_06_4_Pima_Indian_Classification.ipynb`](demos/Week_06_4_Pima_Indian_Classification.ipynb) |
 | Week 06 | **Week 06 Bonus** | Dataset Splitting Patterns | [`Week_06_Bonus_Splitting.ipynb`](demos/Week_06_Bonus_Splitting.ipynb) |
-| Week 07 | **Week 07 A** | Regression TensorFlow Example | [`Week_07_A_Regression_TensorFlow.ipynb`](demos/Week_07_A_Regression_TensorFlow.ipynb) |
-| Week 07 | **Week 07 B** | Binary Classification with TensorFlow | [`Week_07_B_Binary_Classification.ipynb`](demos/Week_07_B_Binary_Classification.ipynb) |
-| Week 07 | **Week 07 C** | Hyperparameter Classification | [`Week_07_C_Hyperparameter_Classification.ipynb`](demos/Week_07_C_Hyperparameter_Classification.ipynb) |
-| Week 08 | **Week 08 A** | Autoencoder Architecture | [`Week_08_A_Autoencoder.ipynb`](demos/Week_08_A_Autoencoder.ipynb) |
-| Week 08 | **Week 08 B** | Autoencoder for Feature Extraction & Classification | [`Week_08_B_Autoencoder.ipynb`](demos/Week_08_B_Autoencoder.ipynb) |
-| Week 08 | **Week 08 C** | Dropout Regularization | [`Week_08_C_Dropout_Regularization.ipynb`](demos/Week_08_C_Dropout_Regularization.ipynb) |
-| Week 08 | **Week 08 D** | Neural Network Regularization | [`Week_08_D_NN_Regularization.ipynb`](demos/Week_08_D_NN_Regularization.ipynb) |
+| Week 07.1 | **Week 07.1** | Regression TensorFlow Example | [`Week_07_1_Regression_TensorFlow.ipynb`](demos/Week_07_1_Regression_TensorFlow.ipynb) |
+| Week 07.2 | **Week 07.2** | Binary Classification with TensorFlow | [`Week_07_2_Binary_Classification.ipynb`](demos/Week_07_2_Binary_Classification.ipynb) |
+| Week 07.3 | **Week 07.3** | Hyperparameter Classification | [`Week_07_3_Hyperparameter_Classification.ipynb`](demos/Week_07_3_Hyperparameter_Classification.ipynb) |
+| Week 08.1 | **Week 08.1** | Autoencoder Architecture | [`Week_08_1_Autoencoder.ipynb`](demos/Week_08_1_Autoencoder.ipynb) |
+| Week 08.2 | **Week 08.2** | Autoencoder for Feature Extraction & Classification | [`Week_08_2_Autoencoder.ipynb`](demos/Week_08_2_Autoencoder.ipynb) |
+| Week 08.3 | **Week 08.3** | Dropout Regularization | [`Week_08_3_Dropout_Regularization.ipynb`](demos/Week_08_3_Dropout_Regularization.ipynb) |
+| Week 08.4 | **Week 08.4** | Neural Network Regularization | [`Week_08_4_NN_Regularization.ipynb`](demos/Week_08_4_NN_Regularization.ipynb) |
 | Week 08 | **Week 08 Bonus** | Trivial Models Baseline | [`Week_08_Bonus_Trivial_Models.ipynb`](demos/Week_08_Bonus_Trivial_Models.ipynb) |
-| Week 09 | **Week 09 C** | General Machine Learning Debugging | [`Week_09_C_General_ML_Debugging.ipynb`](demos/Week_09_C_General_ML_Debugging.ipynb) |
-| Week 09 | **Week 09 D** | Debugging in Regression | [`Week_09_D_Debugging_Regression.ipynb`](demos/Week_09_D_Debugging_Regression.ipynb) |
-| Week 09 | **Week 09 E** | Debugging in Classification | [`Week_09_E_Debugging_Classification.ipynb`](demos/Week_09_E_Debugging_Classification.ipynb) |
-| Week 09 | **Week 09 F** | Model Checkpointing & Hyperparameter Logging | [`Week_09_F_Checkpointing.ipynb`](demos/Week_09_F_Checkpointing.ipynb) |
+| Week 09.1 | **Week 09.1** | General Machine Learning Debugging | [`Week_09_1_General_ML_Debugging.ipynb`](demos/Week_09_1_General_ML_Debugging.ipynb) |
+| Week 09.2 | **Week 09.2** | Debugging in Regression | [`Week_09_2_Debugging_Regression.ipynb`](demos/Week_09_2_Debugging_Regression.ipynb) |
+| Week 09.3 | **Week 09.3** | Debugging in Classification | [`Week_09_3_Debugging_Classification.ipynb`](demos/Week_09_3_Debugging_Classification.ipynb) |
+| Week 09.4 | **Week 09.4** | Model Checkpointing & Hyperparameter Logging | [`Week_09_4_Checkpointing.ipynb`](demos/Week_09_4_Checkpointing.ipynb) |
 | Week 09 | **Week 09 Bonus** | Neural Network Architecture Visualization | [`Week_09_Bonus_Ann_viz.ipynb`](demos/Week_09_Bonus_Ann_viz.ipynb) |
