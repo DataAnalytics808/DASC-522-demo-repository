@@ -1,12 +1,11 @@
 # DASC-522 Course Datasets Directory
 
-This document lists each dataset used in the DASC-522 course demonstrations, its size, storage location, using notebooks, and canonical HTTPS download URL.
+This document lists each dataset used in the DASC-522 course demonstrations, its size, storage location, using notebooks, and URL.
 
 ## Storage Policy Summary
 - **GitHub (`data/`)**: All demonstration datasets (all <= 25 MB) are stored directly in this repository and accessed via public raw GitHub URLs.
 - **Built-in / Public Datasets**: Standard benchmark datasets (e.g. Fashion-MNIST, MNIST, California Housing, Higgs) are loaded directly via Keras built-in loaders or public mirrors.
-- **Google Cloud Storage**: Not required. Zero cloud infrastructure or hosting cost.
-- **Direct Colab Loading**: Notebooks load datasets directly via HTTPS URLs without requiring student logins, manual downloads, or Google Drive mounting.
+- **Direct Colab Loading**: Notebooks load datasets directly via HTTPS URLs.  This does not require student logins, manual downloads, or Google Drive mounting.
 
 ## Datasets Inventory Table
 
