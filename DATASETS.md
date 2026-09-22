@@ -1,15 +1,16 @@
 # DASC-522 Course Datasets Directory
 
-This document lists each dataset used in the DASC-522 course demonstrations, its size, storage tier, using notebooks, and canonical HTTPS download URL.
+This document lists each dataset used in the DASC-522 course demonstrations, its size, storage location, using notebooks, and canonical HTTPS download URL.
 
 ## Storage Policy Summary
-- **GitHub (`data/`)**: Datasets <= 25 MB directly used by demonstrations are stored in this repository and accessed via public raw GitHub URLs.
-- **Google Cloud Storage (GCS)**: Datasets > 25 MB are stored in dedicated public course bucket (`dasc-522-course-data`) with anonymous read access.
+- **GitHub (`data/`)**: All demonstration datasets (all <= 25 MB) are stored directly in this repository and accessed via public raw GitHub URLs.
+- **Built-in / Public Datasets**: Standard benchmark datasets (e.g. Fashion-MNIST, MNIST, California Housing, Higgs) are loaded directly via Keras built-in loaders or public mirrors.
+- **Google Cloud Storage**: Not required. Zero cloud infrastructure or hosting cost.
 - **Direct Colab Loading**: Notebooks load datasets directly via HTTPS URLs without requiring student logins, manual downloads, or Google Drive mounting.
 
 ## Datasets Inventory Table
 
-Total Active Datasets: **38**
+Total Active Datasets: **32**
 
 | Dataset File | Size | Storage | Notebook(s) Using Dataset | Canonical Download URL |
 | :--- | :--- | :--- | :--- | :--- |
@@ -32,17 +33,11 @@ Total Active Datasets: **38**
 | `UScrime 2.csv` | 3,376 bytes (3.3 KB) | **GitHub** | Week 04 A (Stepwise Selection) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/UScrime 2.csv) |
 | `Z_X.csv` | 212,419 bytes (207.4 KB) | **GitHub** | Week 05 Bonus (Plotting Histograms of Numeric Variables) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/Z_X.csv) |
 | `Z_y.csv` | 3,774 bytes (3.7 KB) | **GitHub** | Week 05 Bonus (Plotting Histograms of Numeric Variables) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/Z_y.csv) |
-| `autoencoder.weights.h5` | 14,186,816 bytes (13.53 MB) | **GitHub** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/autoencoder.weights.h5) |
-| `autoencoder_classification.weights.h5` | 11,203,048 bytes (10.68 MB) | **GitHub** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/autoencoder_classification.weights.h5) |
 | `batch_output.csv` | 20,546 bytes (20.1 KB) | **GitHub** | Week 09 F (Model Checkpointing & Hyperparameter Logging) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/batch_output.csv) |
 | `best_model.keras` | 1,052,037 bytes (1.00 MB) | **GitHub** | Week 09 F (Model Checkpointing & Hyperparameter Logging) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/best_model.keras) |
 | `boston_house_prices.csv` | 35,200 bytes (34.4 KB) | **GitHub** | Week 02 C (Tree Based Regression & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/boston_house_prices.csv) |
 | `dnn_model.keras` | 87,361 bytes (85.3 KB) | **GitHub** | Week 07 A (Regression TensorFlow Example) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/dnn_model.keras) |
 | `drug_consumption.xlsx` | 308,300 bytes (301.1 KB) | **GitHub** | Week 03 Bonus (Raindrop Plot Demo) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/drug_consumption.xlsx) |
-| `t10k-images-idx3-ubyte.gz` | 4,422,102 bytes (4.22 MB) | **GitHub** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/t10k-images-idx3-ubyte.gz) |
-| `t10k-labels-idx1-ubyte.gz` | 5,148 bytes (5.0 KB) | **GitHub** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/t10k-labels-idx1-ubyte.gz) |
-| `train-images-idx3-ubyte.gz` | 26,421,880 bytes (25.20 MB) | **GCS** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://storage.googleapis.com/dasc-522-course-data/train-images-idx3-ubyte.gz) |
-| `train-labels-idx1-ubyte.gz` | 29,515 bytes (28.8 KB) | **GitHub** | Week 08 B (Autoencoder for Feature Extraction & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/train-labels-idx1-ubyte.gz) |
 | `images/decision_trees/decision_tree_decision_boundaries_plot.png` | 98,058 bytes (95.8 KB) | **GitHub** | Week 02 C (Tree Based Regression & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/images/decision_trees/decision_tree_decision_boundaries_plot.png) |
 | `images/decision_trees/decision_tree_instability_plot.png` | 88,088 bytes (86.0 KB) | **GitHub** | Week 02 C (Tree Based Regression & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/images/decision_trees/decision_tree_instability_plot.png) |
 | `images/decision_trees/iris_tree.dot` | 826 bytes (0.8 KB) | **GitHub** | Week 02 C (Tree Based Regression & Classification) | [URL](https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/images/decision_trees/iris_tree.dot) |

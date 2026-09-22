@@ -16,12 +16,12 @@ Direct Colab Launch Link (colab.research.google.com/github/...)
 Google Colab Environment (Student Account)
        │
        ▼
-Select 'Run All' -> Notebook programmatically downloads datasets from GitHub / GCS
+Select 'Run All' -> Notebook programmatically obtains required datasets and executes
 ```
 
 ### Key Principles
 1. **Zero Student Overhead**: Students do not need a GitHub account, do not need GCP credentials, and do not need to clone the repo or mount Google Drive.
-2. **Self-Contained Notebooks**: Every demonstration notebook obtains its required data programmatically via public HTTPS URLs.
+2. **Self-Contained Notebooks**: Every demonstration notebook obtains its required data programmatically via public HTTPS URLs or Keras built-in datasets.
 3. **Track Current Colab**: Demonstration code runs against today's standard Colab runtime without artificial package freezing or pinned historical libraries.
 4. **No Homework Solutions**: This repository contains demonstration notebooks only. Homework solutions are maintained separately.
 
@@ -32,7 +32,7 @@ Select 'Run All' -> Notebook programmatically downloads datasets from GitHub / G
 │   ├── Week_02_A_Regression_Review.ipynb
 │   ├── Week_02_B_Classification.ipynb
 │   └── ...
-├── data/              # Small course datasets (<= 25 MB) stored directly in GitHub
+├── data/              # Course datasets (all <= 25 MB) stored directly in GitHub
 │   ├── GRE.csv
 │   ├── Hitters.csv
 │   └── ...
@@ -44,12 +44,11 @@ Select 'Run All' -> Notebook programmatically downloads datasets from GitHub / G
 └── colab_links.csv    # Machine-readable Canvas link exports
 ```
 
-## Dataset Storage Tiering
+## Dataset Storage
 
-- **Small Datasets (<= 25 MB)**: Stored under `/data/`. Accessed via:
+- **Repository Datasets (`/data/`)**: Stored under `/data/`. Accessed via:
   `https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data/<filename>`
-- **Large Datasets (> 25 MB)**: Stored in dedicated public read-only Google Cloud Storage bucket (`dasc-522-course-data`). Accessed via:
-  `https://storage.googleapis.com/dasc-522-course-data/<filename>`
+- **Built-in Benchmark Datasets**: Datasets like Fashion-MNIST and MNIST are loaded directly via Keras built-in loaders (`keras.datasets.fashion_mnist.load_data()`), eliminating any requirement for Google Cloud Storage or external buckets.
 
 ## Canvas Integration
 

@@ -184,28 +184,21 @@ def extract_demo_notebook(
                 "347Sum 106FP 241FN 0.837f1.h5"
             )
 
-        # Check for Week 8B data extraction fix: download files programmatically if needed
-        if demo.filename == "Week_08_B_Autoencoder.ipynb" and "extract_data('train-images-idx3-ubyte.gz'" in source_str:
-            # Prepend download logic before extract_data call
-            download_block = (
-                "# Programmatically download Fashion-MNIST data files if not present\n"
-                "import urllib.request, os\n"
-                "base_gcs = 'https://storage.googleapis.com/dasc-522-course-data'\n"
-                "base_gh = 'https://raw.githubusercontent.com/DataAnalytics808/DASC-522-demo-repository/main/data'\n"
-                "files_to_fetch = [\n"
-                "    ('train-images-idx3-ubyte.gz', base_gcs),\n"
-                "    ('train-labels-idx1-ubyte.gz', base_gh),\n"
-                "    ('t10k-images-idx3-ubyte.gz', base_gh),\n"
-                "    ('t10k-labels-idx1-ubyte.gz', base_gh),\n"
-                "    ('autoencoder.weights.h5', base_gh),\n"
-                "    ('autoencoder_classification.weights.h5', base_gh)\n"
-                "]\n"
-                "for fname, src in files_to_fetch:\n"
-                "    if not os.path.exists(fname):\n"
-                "        print(f'Fetching {fname}...')\n"
-                "        urllib.request.urlretrieve(f'{src}/{fname}', fname)\n\n"
-            )
-            source_str = download_block + source_str
+        # Check for Week 8B Fashion-MNIST: load directly via keras.datasets.fashion_mnist.load_data()
+        if demo.filename == "Week_08_B_Autoencoder.ipynb":
+            if "def extract_data(filename, num_images):" in source_str:
+                source_str = "# Fashion-MNIST dataset is loaded directly from keras.datasets.fashion_mnist in the next cell\n"
+            elif "extract_data('train-images-idx3-ubyte.gz'" in source_str:
+                source_str = (
+                    "# Load Fashion-MNIST dataset directly from Keras built-in datasets\n"
+                    "from tensorflow import keras\n\n"
+                    "(train_images, train_labels), (test_images, test_labels) = keras.datasets.fashion_mnist.load_data()\n\n"
+                    "# Select first 10,000 samples and cast to float32 to match demonstration parameters\n"
+                    "train_data = train_images[:10000].astype(np.float32)\n"
+                    "test_data = test_images[:10000].astype(np.float32)\n"
+                    "train_labels = train_labels[:10000].astype(np.int64)\n"
+                    "test_labels = test_labels[:10000].astype(np.int64)\n"
+                )
 
         # Check for Week 9F Cade data files download
         if demo.filename == "Week_09_F_Checkpointing.ipynb" and 'pd.read_csv("Cade_X.csv")' in source_str:
@@ -481,8 +474,8 @@ def get_all_demo_definitions() -> List[DemoDefinition]:
             title="Autoencoder for Feature Extraction & Classification",
             filename="Week_08_B_Autoencoder.ipynb",
             start_cell=688, end_cell=739,
-            datasets=["train-images-idx3-ubyte.gz", "train-labels-idx1-ubyte.gz", "t10k-images-idx3-ubyte.gz", "t10k-labels-idx1-ubyte.gz", "autoencoder.weights.h5", "autoencoder_classification.weights.h5"],
-            dataset_storage="GCS + GitHub",
+            datasets=[],
+            dataset_storage="Keras Built-in",
             description="Fashion-MNIST autoencoder representation learning and downstream classification with frozen encoder layers."
         ),
         DemoDefinition(
@@ -622,10 +615,11 @@ def generate_datasets_markdown(demos: List[DemoDefinition], datasets_dir: str, r
 
     md_lines = [
         "# DASC-522 Course Datasets Directory\n",
-        "This document lists each dataset used in the DASC-522 course demonstrations, its size, storage tier, using notebooks, and canonical HTTPS download URL.\n",
+        "This document lists each dataset used in the DASC-522 course demonstrations, its size, storage location, using notebooks, and canonical HTTPS download URL.\n",
         "## Storage Policy Summary",
-        "- **GitHub (`data/`)**: Datasets <= 25 MB directly used by demonstrations are stored in this repository and accessed via public raw GitHub URLs.",
-        "- **Google Cloud Storage (GCS)**: Datasets > 25 MB are stored in dedicated public course bucket (`dasc-522-course-data`) with anonymous read access.",
+        "- **GitHub (`data/`)**: All demonstration datasets (all <= 25 MB) are stored directly in this repository and accessed via public raw GitHub URLs.",
+        "- **Built-in / Public Datasets**: Standard benchmark datasets (e.g. Fashion-MNIST, MNIST, California Housing, Higgs) are loaded directly via Keras built-in loaders or public mirrors.",
+        "- **Google Cloud Storage**: Not required. Zero cloud infrastructure or hosting cost.",
         "- **Direct Colab Loading**: Notebooks load datasets directly via HTTPS URLs without requiring student logins, manual downloads, or Google Drive mounting.\n",
         "## Datasets Inventory Table\n",
         f"Total Active Datasets: **{len(files_info)}**\n",
@@ -657,11 +651,11 @@ def generate_readme_markdown(demos: List[DemoDefinition], repo: str, branch: str
         "Google Colab Environment (Student Account)",
         "       │",
         "       ▼",
-        "Select 'Run All' -> Notebook programmatically downloads datasets from GitHub / GCS",
+        "Select 'Run All' -> Notebook programmatically obtains required datasets and executes",
         "```\n",
         "### Key Principles",
         "1. **Zero Student Overhead**: Students do not need a GitHub account, do not need GCP credentials, and do not need to clone the repo or mount Google Drive.",
-        "2. **Self-Contained Notebooks**: Every demonstration notebook obtains its required data programmatically via public HTTPS URLs.",
+        "2. **Self-Contained Notebooks**: Every demonstration notebook obtains its required data programmatically via public HTTPS URLs or Keras built-in datasets.",
         "3. **Track Current Colab**: Demonstration code runs against today's standard Colab runtime without artificial package freezing or pinned historical libraries.",
         "4. **No Homework Solutions**: This repository contains demonstration notebooks only. Homework solutions are maintained separately.\n",
         "## Directory Structure\n",
@@ -670,7 +664,7 @@ def generate_readme_markdown(demos: List[DemoDefinition], repo: str, branch: str
         "│   ├── Week_02_A_Regression_Review.ipynb",
         "│   ├── Week_02_B_Classification.ipynb",
         "│   └── ...",
-        "├── data/              # Small course datasets (<= 25 MB) stored directly in GitHub",
+        "├── data/              # Course datasets (all <= 25 MB) stored directly in GitHub",
         "│   ├── GRE.csv",
         "│   ├── Hitters.csv",
         "│   └── ...",
@@ -681,11 +675,10 @@ def generate_readme_markdown(demos: List[DemoDefinition], repo: str, branch: str
         "├── COLAB_LINKS.md     # Ready-to-copy Canvas external URLs for all demonstrations",
         "└── colab_links.csv    # Machine-readable Canvas link exports",
         "```\n",
-        "## Dataset Storage Tiering\n",
-        "- **Small Datasets (<= 25 MB)**: Stored under `/data/`. Accessed via:",
+        "## Dataset Storage\n",
+        "- **Repository Datasets (`/data/`)**: Stored under `/data/`. Accessed via:",
         f"  `https://raw.githubusercontent.com/{repo}/{branch}/data/<filename>`",
-        "- **Large Datasets (> 25 MB)**: Stored in dedicated public read-only Google Cloud Storage bucket (`dasc-522-course-data`). Accessed via:",
-        "  `https://storage.googleapis.com/dasc-522-course-data/<filename>`\n",
+        "- **Built-in Benchmark Datasets**: Datasets like Fashion-MNIST and MNIST are loaded directly via Keras built-in loaders (`keras.datasets.fashion_mnist.load_data()`), eliminating any requirement for Google Cloud Storage or external buckets.\n",
         "## Canvas Integration\n",
         "To add a demonstration into Canvas as a module item:",
         "1. Open [`COLAB_LINKS.md`](COLAB_LINKS.md).",
