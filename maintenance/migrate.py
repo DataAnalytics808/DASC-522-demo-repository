@@ -135,7 +135,7 @@ def extract_demo_notebook(
     dataset_mapping = {}
     for ds in demo.datasets:
         storage = classify_dataset_storage(ds, 0) # default check
-        if ds in ["train-images-idx3-ubyte.gz", "8B datafiles.zip"]:
+        if ds in ["train-images-idx3-ubyte.gz"]:
             dataset_mapping[ds] = f"{gcs_base_url}/{ds}"
         else:
             dataset_mapping[ds] = f"{raw_base_url}/{ds}"
