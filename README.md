@@ -8,7 +8,7 @@ Welcome to the demonstration repository for **DASC-522 Machine Learning**. This 
 
 Each demonstration in this repository is designed to run seamlessly in the cloud without requiring local Python installation, manual file downloads, or Google Drive mounting:
 
-1. **Launch in Colab**: Click the provided Colab link for any demonstration in [`COLAB_LINKS.md`](COLAB_LINKS.md).
+1. **Launch in Colab**: Click the **Open in Colab** link for any demonstration in the table below.
 2. **Copy to Drive**: Select **Copy to Drive** at the top of the notebook to save an editable copy to your own Google account.
 3. **Run All**: Execute the cells in sequence. Datasets are fetched programmatically from the repository or standard library loaders.
 
@@ -43,7 +43,6 @@ Demonstration Link ──> Google Colab ──> Automatic Data Retrieval ──>
 │   ├── lightning_data.db
 │   ├── weather_data.db
 │   └── ...
-├── COLAB_LINKS.md     # Complete catalog of direct Colab launch links and CPU runtimes
 └── README.md          # Repository overview and guide (this file)
 ```
 
@@ -57,45 +56,46 @@ Demonstration Link ──> Google Colab ──> Automatic Data Retrieval ──>
 
 ---
 
-## Course Demonstrations & Notebooks
+## Course Demonstrations
 
-Total Notebooks: **36** (See [`COLAB_LINKS.md`](COLAB_LINKS.md) for direct one-click Colab launch links and measured CPU runtimes).
+Total Demonstrations: **36**
 
-| Week / Item | Title | Topic | Notebook Path |
-| :--- | :--- | :--- | :--- |
-| **Week 02.1** | Regression Review | OLS regression, metrics, and diagnostics | [`demos/Week_02_1_Regression_Review.ipynb`](demos/Week_02_1_Regression_Review.ipynb) |
-| **Week 02.2** | Classification | Logistic Regression, LDA, and QDA | [`demos/Week_02_2_Classification.ipynb`](demos/Week_02_2_Classification.ipynb) |
-| **Week 02.3** | Tree-Based Methods | Decision trees for regression and classification | [`demos/Week_02_3_Tree_Based_Regression_Classification.ipynb`](demos/Week_02_3_Tree_Based_Regression_Classification.ipynb) |
-| **Week 02 Bonus** | Intercept Diagnostics | Analysis of model fit with and without an intercept | [`demos/Week_02_Bonus_To_Intercept_or_Not.ipynb`](demos/Week_02_Bonus_To_Intercept_or_Not.ipynb) |
-| **Week 03.1** | Clustering | Hierarchical clustering and K-Means | [`demos/Week_03_1_Hierarchical_Clustering_KMeans.ipynb`](demos/Week_03_1_Hierarchical_Clustering_KMeans.ipynb) |
-| **Week 03.2** | PCA & Anomaly Detection | Dimensionality reduction and outlier detection | [`demos/Week_03_2_PCA_Anomaly_Detection.ipynb`](demos/Week_03_2_PCA_Anomaly_Detection.ipynb) |
-| **Week 03 Bonus** | Raindrop Plot | Data visualization with custom raindrop plots | [`demos/Week_03_Bonus_Raindrop_Plot.ipynb`](demos/Week_03_Bonus_Raindrop_Plot.ipynb) |
-| **Week 03 Readings**| Feature Transformation | Box-Cox transforms and feature standardization | [`demos/Week_03_Readings_Standardize_Transform.ipynb`](demos/Week_03_Readings_Standardize_Transform.ipynb) |
-| **Week 04.1** | Stepwise Selection | Best subset, forward, and backward selection | [`demos/Week_04_1_Stepwise_Selection.ipynb`](demos/Week_04_1_Stepwise_Selection.ipynb) |
-| **Week 04.2** | Regularization | Ridge (L2) and Lasso (L1) regression | [`demos/Week_04_2_L1_L2_Regularization.ipynb`](demos/Week_04_2_L1_L2_Regularization.ipynb) |
-| **Week 04.3** | Natural Language Processing | Text classification with TF-IDF and Naive Bayes | [`demos/Week_04_3_Natural_Language_Processing.ipynb`](demos/Week_04_3_Natural_Language_Processing.ipynb) |
-| **Week 04 Bonus** | Plot Formatting | Consistent visualization styles for publication | [`demos/Week_04_Bonus_Standard_Plot_Format.ipynb`](demos/Week_04_Bonus_Standard_Plot_Format.ipynb) |
-| **Week 04A** | Feature Selection (BIC & RFE) | Powersets, AIC/BIC selection, and Recursive Feature Elimination | [`demos/4 Week 4A feature_selection_expanded with BIC and RFE v3.ipynb`](demos/4%20Week%204A%20feature_selection_expanded%20with%20BIC%20and%20RFE%20v3.ipynb) |
-| **Week 05.1** | Neural Network Basics | Multi-layer perceptron on Pima diabetes data | [`demos/Week_05_1_Pima_Indian_Classification.ipynb`](demos/Week_05_1_Pima_Indian_Classification.ipynb) |
-| **Week 05 Bonus** | Numeric Distributions | Exploratory histogram visualization | [`demos/Week_05_Bonus_Histograms.ipynb`](demos/Week_05_Bonus_Histograms.ipynb) |
-| **Week 06.1** | Early Stopping | Regularization and loss monitoring during training | [`demos/Week_06_1_Early_Stopping.ipynb`](demos/Week_06_1_Early_Stopping.ipynb) |
-| **Week 06.2** | Optimization | Gradient descent optimizers and learning rates | [`demos/Week_06_2_Optimization.ipynb`](demos/Week_06_2_Optimization.ipynb) |
-| **Week 06.3** | Cross-Validation | K-Fold, Stratified K-Fold, and leave-one-out CV | [`demos/Week_06_3_Resampling_Cross_Validation.ipynb`](demos/Week_06_3_Resampling_Cross_Validation.ipynb) |
-| **Week 06.4** | Model Comparison | Comparing neural network architectures | [`demos/Week_06_4_Pima_Indian_Classification.ipynb`](demos/Week_06_4_Pima_Indian_Classification.ipynb) |
-| **Week 06 Bonus** | Data Splitting | Train, validation, and test split strategies | [`demos/Week_06_Bonus_Splitting.ipynb`](demos/Week_06_Bonus_Splitting.ipynb) |
-| **Week 07.1** | TensorFlow Regression | Building regression models with Keras | [`demos/Week_07_1_Regression_TensorFlow.ipynb`](demos/Week_07_1_Regression_TensorFlow.ipynb) |
-| **Week 07.2** | Binary Classification | Deep learning for binary classification | [`demos/Week_07_2_Binary_Classification.ipynb`](demos/Week_07_2_Binary_Classification.ipynb) |
-| **Week 07.3** | Hyperparameter Sweeps | Systematic hyperparameter tuning | [`demos/Week_07_3_Hyperparameter_Classification.ipynb`](demos/Week_07_3_Hyperparameter_Classification.ipynb) |
-| **Week 08.1** | Autoencoders | Dimensionality reduction with autoencoders | [`demos/Week_08_1_Autoencoder.ipynb`](demos/Week_08_1_Autoencoder.ipynb) |
-| **Week 08.2** | Image Autoencoders | Feature extraction and classification on Fashion-MNIST | [`demos/Week_08_2_Autoencoder.ipynb`](demos/Week_08_2_Autoencoder.ipynb) |
-| **Week 08.3** | Dropout Regularization | Preventing overfitting with dropout layers | [`demos/Week_08_3_Dropout_Regularization.ipynb`](demos/Week_08_3_Dropout_Regularization.ipynb) |
-| **Week 08.4** | Deep Network Regularization | Weight decay, dropout, and capacity tuning | [`demos/Week_08_4_NN_Regularization.ipynb`](demos/Week_08_4_NN_Regularization.ipynb) |
-| **Week 08 Bonus** | Baseline Models | Establishing baseline performance thresholds | [`demos/Week_08_Bonus_Trivial_Models.ipynb`](demos/Week_08_Bonus_Trivial_Models.ipynb) |
-| **Week 09.1** | ML Debugging | Diagnosing common model training issues | [`demos/Week_09_1_General_ML_Debugging.ipynb`](demos/Week_09_1_General_ML_Debugging.ipynb) |
-| **Week 09.2** | Regression Debugging | Identifying error causes in regression models | [`demos/Week_09_2_Debugging_Regression.ipynb`](demos/Week_09_2_Debugging_Regression.ipynb) |
-| **Week 09.3** | Classification Debugging | Troubleshooting classification convergence | [`demos/Week_09_3_Debugging_Classification.ipynb`](demos/Week_09_3_Debugging_Classification.ipynb) |
-| **Week 09.4** | Model Checkpointing | Saving optimal model weights during training | [`demos/Week_09_4_Checkpointing.ipynb`](demos/Week_09_4_Checkpointing.ipynb) |
-| **Week 09 Bonus** | Network Visualization | Visualizing network topology with `ann_visualizer` | [`demos/Week_09_Bonus_Ann_viz.ipynb`](demos/Week_09_Bonus_Ann_viz.ipynb) |
-| **HW 2** | Homework 2 Template | Classical ML, feature transformations, and Logit modeling | [`demos/Homework_2_template_v7.ipynb`](demos/Homework_2_template_v7.ipynb) |
-| **HW 3** | Homework 3 Template | SQL database loading, BIC selection, and RFE on weather data | [`demos/Homework_3_template_v5.ipynb`](demos/Homework_3_template_v5.ipynb) |
-| **Tutorial** | Load Database Tutorial | Querying multiple SQLite database tables and fitting Logit model | [`demos/load_database_tutorial_v2.ipynb`](demos/load_database_tutorial_v2.ipynb) |
+| Week / Item | Demonstration | Topic | Notebook | Run in Colab | CPU runtime |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **Week 02.1** | Regression Review | OLS regression, metrics, and diagnostics | [`Week_02_1_Regression_Review.ipynb`](demos/Week_02_1_Regression_Review.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_02_1_Regression_Review.ipynb) | 5.4s |
+| **Week 02.2** | Classification | Logistic Regression, LDA, and QDA | [`Week_02_2_Classification.ipynb`](demos/Week_02_2_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_02_2_Classification.ipynb) | 5.6s |
+| **Week 02.3** | Tree-Based Methods | Decision trees for regression and classification | [`Week_02_3_Tree_Based_Regression_Classification.ipynb`](demos/Week_02_3_Tree_Based_Regression_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_02_3_Tree_Based_Regression_Classification.ipynb) | 48.5s |
+| **Week 02 Bonus** | Intercept Diagnostics | Analysis of model fit with and without an intercept | [`Week_02_Bonus_To_Intercept_or_Not.ipynb`](demos/Week_02_Bonus_To_Intercept_or_Not.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_02_Bonus_To_Intercept_or_Not.ipynb) | 18.8s |
+| **Week 03.1** | Clustering | Hierarchical clustering and K-Means | [`Week_03_1_Hierarchical_Clustering_KMeans.ipynb`](demos/Week_03_1_Hierarchical_Clustering_KMeans.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_03_1_Hierarchical_Clustering_KMeans.ipynb) | 16.6s |
+| **Week 03.2** | PCA & Anomaly Detection | Dimensionality reduction and outlier detection | [`Week_03_2_PCA_Anomaly_Detection.ipynb`](demos/Week_03_2_PCA_Anomaly_Detection.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_03_2_PCA_Anomaly_Detection.ipynb) | 4.6s |
+| **Week 03 Bonus** | Raindrop Plot | Data visualization with custom raindrop plots | [`Week_03_Bonus_Raindrop_Plot.ipynb`](demos/Week_03_Bonus_Raindrop_Plot.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_03_Bonus_Raindrop_Plot.ipynb) | 4.3s |
+| **Week 03 Readings** | Feature Transformation | Box-Cox transforms and feature standardization | [`Week_03_Readings_Standardize_Transform.ipynb`](demos/Week_03_Readings_Standardize_Transform.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_03_Readings_Standardize_Transform.ipynb) | 5.2s |
+| **Week 04.1** | Stepwise Selection | Best subset, forward, and backward selection | [`Week_04_1_Stepwise_Selection.ipynb`](demos/Week_04_1_Stepwise_Selection.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_04_1_Stepwise_Selection.ipynb) | 6.9s |
+| **Week 04.2** | Regularization | Ridge (L2) and Lasso (L1) regression | [`Week_04_2_L1_L2_Regularization.ipynb`](demos/Week_04_2_L1_L2_Regularization.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_04_2_L1_L2_Regularization.ipynb) | 24.4s |
+| **Week 04.3** | Natural Language Processing | Text classification with TF-IDF and Naive Bayes | [`Week_04_3_Natural_Language_Processing.ipynb`](demos/Week_04_3_Natural_Language_Processing.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_04_3_Natural_Language_Processing.ipynb) | 40.3s |
+| **Week 04 Bonus** | Plot Formatting | Consistent visualization styles for publication | [`Week_04_Bonus_Standard_Plot_Format.ipynb`](demos/Week_04_Bonus_Standard_Plot_Format.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_04_Bonus_Standard_Plot_Format.ipynb) | 5.2s |
+| **Week 04A** | Feature Selection (BIC & RFE) | Powersets, AIC/BIC selection, and Recursive Feature Elimination | [`4 Week 4A feature_selection_expanded with BIC and RFE v3.ipynb`](demos/4%20Week%204A%20feature_selection_expanded%20with%20BIC%20and%20RFE%20v3.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/4%20Week%204A%20feature_selection_expanded%20with%20BIC%20and%20RFE%20v3.ipynb) | 75.0s |
+| **Week 05.1** | Neural Network Basics | Multi-layer perceptron on Pima diabetes data | [`Week_05_1_Pima_Indian_Classification.ipynb`](demos/Week_05_1_Pima_Indian_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_05_1_Pima_Indian_Classification.ipynb) | 14.7s |
+| **Week 05 Bonus** | Numeric Distributions | Exploratory histogram visualization | [`Week_05_Bonus_Histograms.ipynb`](demos/Week_05_Bonus_Histograms.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_05_Bonus_Histograms.ipynb) | 6.0s |
+| **Week 06.1** | Early Stopping | Regularization and loss monitoring during training | [`Week_06_1_Early_Stopping.ipynb`](demos/Week_06_1_Early_Stopping.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_06_1_Early_Stopping.ipynb) | 484.0s |
+| **Week 06.2** | Optimization | Gradient descent optimizers and learning rates | [`Week_06_2_Optimization.ipynb`](demos/Week_06_2_Optimization.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_06_2_Optimization.ipynb) | 206.2s |
+| **Week 06.3** | Cross-Validation | K-Fold, Stratified K-Fold, and leave-one-out CV | [`Week_06_3_Resampling_Cross_Validation.ipynb`](demos/Week_06_3_Resampling_Cross_Validation.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_06_3_Resampling_Cross_Validation.ipynb) | 16.8s |
+| **Week 06.4** | Model Comparison | Comparing neural network architectures | [`Week_06_4_Pima_Indian_Classification.ipynb`](demos/Week_06_4_Pima_Indian_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_06_4_Pima_Indian_Classification.ipynb) | 13.8s |
+| **Week 06 Bonus** | Data Splitting | Train, validation, and test split strategies | [`Week_06_Bonus_Splitting.ipynb`](demos/Week_06_Bonus_Splitting.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_06_Bonus_Splitting.ipynb) | 3.5s |
+| **Week 07.1** | TensorFlow Regression | Building regression models with Keras | [`Week_07_1_Regression_TensorFlow.ipynb`](demos/Week_07_1_Regression_TensorFlow.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_07_1_Regression_TensorFlow.ipynb) | 149.0s |
+| **Week 07.2** | Binary Classification | Deep learning for binary classification | [`Week_07_2_Binary_Classification.ipynb`](demos/Week_07_2_Binary_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_07_2_Binary_Classification.ipynb) | 62.4s |
+| **Week 07.3** | Hyperparameter Sweeps | Systematic hyperparameter tuning | [`Week_07_3_Hyperparameter_Classification.ipynb`](demos/Week_07_3_Hyperparameter_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_07_3_Hyperparameter_Classification.ipynb) | 61.2s |
+| **Week 08.1** | Autoencoders | Dimensionality reduction with autoencoders | [`Week_08_1_Autoencoder.ipynb`](demos/Week_08_1_Autoencoder.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_08_1_Autoencoder.ipynb) | 231.9s |
+| **Week 08.2** | Image Autoencoders | Feature extraction and classification on Fashion-MNIST | [`Week_08_2_Autoencoder.ipynb`](demos/Week_08_2_Autoencoder.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_08_2_Autoencoder.ipynb) | 14.6s |
+| **Week 08.3** | Dropout Regularization | Preventing overfitting with dropout layers | [`Week_08_3_Dropout_Regularization.ipynb`](demos/Week_08_3_Dropout_Regularization.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_08_3_Dropout_Regularization.ipynb) | 3.8s |
+| **Week 08.4** | Deep Network Regularization | Weight decay, dropout, and capacity tuning | [`Week_08_4_NN_Regularization.ipynb`](demos/Week_08_4_NN_Regularization.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_08_4_NN_Regularization.ipynb) | 3900.0s |
+| **Week 08 Bonus** | Baseline Models | Establishing baseline performance thresholds | [`Week_08_Bonus_Trivial_Models.ipynb`](demos/Week_08_Bonus_Trivial_Models.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_08_Bonus_Trivial_Models.ipynb) | 7.0s |
+| **Week 09.1** | ML Debugging | Diagnosing common model training issues | [`Week_09_1_General_ML_Debugging.ipynb`](demos/Week_09_1_General_ML_Debugging.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_09_1_General_ML_Debugging.ipynb) | 68.0s |
+| **Week 09.2** | Regression Debugging | Identifying error causes in regression models | [`Week_09_2_Debugging_Regression.ipynb`](demos/Week_09_2_Debugging_Regression.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_09_2_Debugging_Regression.ipynb) | 298.0s |
+| **Week 09.3** | Classification Debugging | Troubleshooting classification convergence | [`Week_09_3_Debugging_Classification.ipynb`](demos/Week_09_3_Debugging_Classification.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_09_3_Debugging_Classification.ipynb) | 105.0s |
+| **Week 09.4** | Model Checkpointing | Saving optimal model weights during training | [`Week_09_4_Checkpointing.ipynb`](demos/Week_09_4_Checkpointing.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_09_4_Checkpointing.ipynb) | 215.0s |
+| **Week 09 Bonus** | Network Visualization | Visualizing network topology with `ann_visualizer` | [`Week_09_Bonus_Ann_viz.ipynb`](demos/Week_09_Bonus_Ann_viz.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Week_09_Bonus_Ann_viz.ipynb) | 14.2s |
+| **HW 2** | Homework 2 Template | Classical ML, feature transformations, and Logit modeling | [`Homework_2_template_v7.ipynb`](demos/Homework_2_template_v7.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Homework_2_template_v7.ipynb) | 4.0s |
+| **HW 3** | Homework 3 Template | SQL database loading, BIC selection, and RFE on weather data | [`Homework_3_template_v5.ipynb`](demos/Homework_3_template_v5.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/Homework_3_template_v5.ipynb) | 4.0s |
+| **Tutorial** | Load Database Tutorial | Querying multiple SQLite database tables and fitting Logit model | [`load_database_tutorial_v2.ipynb`](demos/load_database_tutorial_v2.ipynb) | [Open in Colab](https://colab.research.google.com/github/DataAnalytics808/DASC-522-demo-repository/blob/main/demos/load_database_tutorial_v2.ipynb) | 10.0s |
+

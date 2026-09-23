@@ -6,6 +6,7 @@ __pycache__/
 # Course administration and maintenance
 DATASETS.md
 colab_links.csv
+COLAB_LINKS.md
 maintenance/
 external_links.md
 
